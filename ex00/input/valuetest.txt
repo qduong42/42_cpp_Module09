@@ -11,3 +11,4 @@ date | value
 
 
 2011-01-01 | 0
+date | value

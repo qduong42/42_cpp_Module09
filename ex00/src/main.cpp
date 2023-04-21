@@ -9,13 +9,13 @@
 bool	validDateFormat(std::string str)
 {
 	if (str.length() != 10)
-		return (false);
+		return (true);
 	for (size_t i = 0; i < str.length(); ++i)
 	{
 		if ((i == 4 || i == 7) && str[i] != '-')
-			return (false);
+			return (true);
 	}
-	return (true);
+	return (false);
 }
 
 bool	checkDate(std::string str)
@@ -24,8 +24,8 @@ bool	checkDate(std::string str)
 	size_t end = str.find_last_not_of(" ");
     str = (end == std::string::npos) ? "" : str.substr(0, end + 1);
 	std::cout << "CheckDate buffer:" << str << "END" << std::endl;
-	if (!validDateFormat(str))
-		return (false);
+	if (validDateFormat(str))
+		return (true);
 	int year = std::atoi(str.substr(0, 4).c_str());
 	std::cout << "year: " << year << std::endl;
 	int	month = std::atoi(str.substr(5, 7).c_str());
@@ -33,20 +33,20 @@ bool	checkDate(std::string str)
 	int	day = std::atoi(str.substr(8, 10).c_str());
 	std::cout << "day: " << day << std::endl;
 	if (month > 12 || day > 31 || month == 0 || day == 0)
-		return (false);
+		return (true);
 	if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30)
-		return false;
+		return true;
 	if (month == 2)
 	{
 		if (day > 29)
-			return false;
+			return true;
 		if (year % 4 != 0 && (year % 100 == 0 || year % 400 != 0) && day == 29)
-			return false;
+			return true;
 	}
-	return (true);
+	return (false);
 }
 
-bool checkValue(std::string value)
+bool	checkValue(std::string value)
 {
 	std::cout << "CheckValue buffer:" << value << "END" << std::endl;
 	size_t start = value.find_first_not_of(" ");
@@ -57,13 +57,13 @@ bool checkValue(std::string value)
 	conv = strtod(value.c_str(), &endptr);
 	if (endptr == value.c_str() || *endptr != '\0') 
 	{
-		return (false);
+		return (true);
     }
-	if (conv < 0 || conv > 1000)
+	if (conv <= 0 || conv > 1000)
 	{
-        return (false);
+        return (true);
     } 
-	return (true);
+	return (false);
 }
 
 int main(int argc, char **argv)
@@ -84,22 +84,22 @@ int main(int argc, char **argv)
 			std::cerr << "Error. could not open database file (data.csv). Make sure data.csv is in same folder as btc" << std::endl;
 			return (EXIT_FAILURE);
 		}
-		// std::string buffer;
-		// std::getline(inFile, buffer);
-		// while (buffer.length() != 0)
-		// {
-		// std::getline(inFile, buffer);
-		// std::cout << buffer << std::endl;
-		// }
+	BitcoinExchange Exchange;
+	try
+	{
+		BitcoinExchange ExchangeTry(dataFileName);
+	}
+	catch (std::exception&e) 
+	{
+		std::cerr << "Error: can not open dataFile." << std::endl;
+	}
 		std::string	buffer;
 		while (getline(inFile, buffer))
 		{
 			std::cout << "\n";
-			// std::cout << buffer << std::endl;
-			// size_t i = 0;
-			// i = buffer.find("|");
 			if (buffer == "date | value")
 			{
+				std::cout << buffer << std::endl;
 				continue;
 			}
 			size_t pipePos = buffer.find("|");
@@ -109,11 +109,11 @@ int main(int argc, char **argv)
 				std::cerr << "Error: invalid input line." << std::endl;
 				continue;
 			}
-			if (checkDate(buffer.substr(0, pipePos)) == false)
+			if (checkDate(buffer.substr(0, pipePos)))
 			{
 				std::cerr << "Error. Invalid date" << std::endl;
 			}
-			if (checkValue(buffer.substr(pipePos + 1)) == false)
+			if (checkValue(buffer.substr(pipePos + 1)))
 			{
 				std::cerr << "Error. Invalid value" << std::endl;
 			}
