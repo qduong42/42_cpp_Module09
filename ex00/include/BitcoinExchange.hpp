@@ -23,11 +23,21 @@ class	BitcoinExchange
 
 		BitcoinExchange(std::string);
 
-		// double		find(std::string);
+		float		find(std::string);
 		// std::string	firstDate();
 		// std::string	lastDate();
 
 	class	invalidFileException
+	{
+		const char *	what() const throw();
+	};
+
+	class	precedeException
+	{
+		const char *	what() const throw();
+	};
+
+	class	exceedException
 	{
 		const char *	what() const throw();
 	};

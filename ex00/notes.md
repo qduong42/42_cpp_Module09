@@ -19,9 +19,11 @@ this needs to be ./RPN "8 4 + 1 2 3 - - -"
       - exceeds exchange
 
 
-- TDD
+- TDD(trial)
   - 0: emptytest.txt
   - 1: dataValueonly.txt
   - 2: leaptest.txt => Leap year Test
   - 3: subjectInput.txt
   - 4: valuetest.txt => value, random_empty_spaces, pipe_only_no_right_side
+  - 5: precede date
+  - 6: exceed date

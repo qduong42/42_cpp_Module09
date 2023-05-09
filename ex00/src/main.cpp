@@ -1,5 +1,4 @@
 #include "../include/BitcoinExchange.hpp"
-
 #include <iostream>
 #include <cstdlib>
 #include <iomanip>
@@ -88,41 +87,49 @@ int main(int argc, char **argv)
 		try
 		{
 			BitcoinExchange ExchangeTry(dataFileName);
+			Exchange = ExchangeTry;
 		}
 		catch (std::exception&e) 
 		{
 			std::cerr << "Error: can not open dataFile." << std::endl;
 		}
-			std::string	buffer;
-			getline(inFile, buffer);
-			if (buffer != "date | value")
-			{
-				std::cerr << "Error. Invalid input, first line needs to be:date | value" << std::endl;
-				inFile.close();
-				return (EXIT_FAILURE);
-			}
-			while (getline(inFile, buffer))
-			{
-				std::cout << "\n";
-				size_t pipePos = buffer.find("|");
-				std::cout << "pipePos: " << pipePos << std::endl;
-				if (pipePos == std::string::npos || pipePos == buffer.size() - 1)
-				{
-					std::cerr << "Error: invalid input line." << std::endl;
-					continue;
-				}
-				if (checkDate(buffer.substr(0, pipePos)))
-				{
-					std::cerr << "Error. Invalid date" << std::endl;
-				}
-				if (checkValue(buffer.substr(pipePos + 1)))
-				{
-					std::cerr << "Error. Invalid value" << std::endl;
-				}
-				// std:: cout << i << std::endl;
-				// std::cout << buffer.size() - 1 << std::endl;
-			}
+		std::string	buffer;
+		getline(inFile, buffer);
+		if (buffer != "date | value")
+		{
+			std::cerr << "Error. Invalid input, first line needs to be:date | value" << std::endl;
 			inFile.close();
+			return (EXIT_FAILURE);
+		}
+		while (getline(inFile, buffer))
+		{
+			std::cout << "\n";
+			size_t pipePos = buffer.find("|");
+			std::cout << "pipePos: " << pipePos << std::endl;
+			if (pipePos == std::string::npos || pipePos == buffer.size() - 1)
+			{
+				std::cerr << "Error: invalid input line." << std::endl;
+				continue;
+			}
+			if (checkDate(buffer.substr(0, pipePos)))
+			{
+				std::cerr << "Error. Invalid date" << std::endl;
+			}
+			if (checkValue(buffer.substr(pipePos + 1)))
+			{
+				std::cerr << "Error. Invalid value" << std::endl;
+			}
+		try
+		{
+			float result;
+			result = Exchange.find(buffer.substr(0, pipePos));
+		}
+		catch (std::exception&e) 
+		{
+			std::cerr << "Caught here" << std::endl;
+		}
+		}
+		inFile.close();
 		}
 	else
 	{

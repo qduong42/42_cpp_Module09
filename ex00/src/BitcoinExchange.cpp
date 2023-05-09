@@ -66,6 +66,23 @@ BitcoinExchange::BitcoinExchange(std::string dataFileName):
 	// }
 }
 
+float BitcoinExchange::find(std::string date)
+{
+	size_t end = date.find_last_not_of(" ");
+    date = (end == std::string::npos) ? "" : date.substr(0, end + 1);
+	if (date < this->_exchange.begin()->first)
+	{
+		throw	precedeException();
+	}
+	if (date > this->_exchange.end()->first)
+	{
+		throw exceedException();
+	}
+	std::map<std::string, float>::iterator it;
+	it = this->_exchange.find(date);
+	return 1;
+}
+
 BitcoinExchange::~BitcoinExchange()
 {}
 
@@ -74,5 +91,14 @@ const char*	BitcoinExchange::invalidFileException::what() const throw()
 	return ("Error: BitcoinExchange: invalid data file.");
 }
 
+const char*	BitcoinExchange::precedeException::what() const throw()
+{
+	return ("Error: Date preceeds exchange data");
+}
+
+const char*	BitcoinExchange::exceedException::what() const throw()
+{
+	return ("Error: Date exceeds exchange data");
+}
 //	MEMBER FUNCTIONS
 
