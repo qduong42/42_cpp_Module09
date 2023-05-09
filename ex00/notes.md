@@ -13,3 +13,15 @@ this needs to be ./RPN "8 4 + 1 2 3 - - -"
     - Check for exact match of "date | value"
     - Check Date Format -> YYYY-MM-DD where Month must be between 1 - 12 and DD between 1 and 31 Year YYYY 2009 or more. if less than 2009 = predates exchange.
     - Check value => convert to float and check between 0 - 1000.
+    - find date in data.csv -> if match => conversion to value then output
+      - if NO match => nearest (lower) date OR
+      - Predates exchange OR
+      - exceeds exchange
+
+
+- TDD
+  - 0: emptytest.txt
+  - 1: dataValueonly.txt
+  - 2: leaptest.txt => Leap year Test
+  - 3: subjectInput.txt
+  - 4: valuetest.txt => value, random_empty_spaces, pipe_only_no_right_side

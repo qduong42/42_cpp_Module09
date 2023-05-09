@@ -11,7 +11,7 @@ bool	validDate(std::string);
 class	BitcoinExchange
 {
 	private:
-		const std::map<std::string, float>	_exchange;
+		std::map<std::string, float>	_exchange;
 	
 	public:
 		BitcoinExchange();

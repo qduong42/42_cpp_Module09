@@ -56,7 +56,6 @@ BitcoinExchange::BitcoinExchange(std::string dataFileName):
 		std::string	priceStr(buffer.substr(commaPos + 1, buffer.length()));
 		std::pair<std::string, float>	pair;
 		pair = make_pair(dateStr, atof(priceStr.c_str()));
-		data.insert(pair);
 	}
 	dataFile.close();
 	new (this) BitcoinExchange(data);

@@ -84,44 +84,46 @@ int main(int argc, char **argv)
 			std::cerr << "Error. could not open database file (data.csv). Make sure data.csv is in same folder as btc" << std::endl;
 			return (EXIT_FAILURE);
 		}
-	BitcoinExchange Exchange;
-	try
-	{
-		BitcoinExchange ExchangeTry(dataFileName);
-	}
-	catch (std::exception&e) 
-	{
-		std::cerr << "Error: can not open dataFile." << std::endl;
-	}
-		std::string	buffer;
-		while (getline(inFile, buffer))
+		BitcoinExchange Exchange;
+		try
 		{
-			std::cout << "\n";
-			if (buffer == "date | value")
-			{
-				std::cout << buffer << std::endl;
-				continue;
-			}
-			size_t pipePos = buffer.find("|");
-			std::cout << "pipePos: " << pipePos << std::endl;
-			if (pipePos == std::string::npos || pipePos == buffer.size() - 1)
-			{
-				std::cerr << "Error: invalid input line." << std::endl;
-				continue;
-			}
-			if (checkDate(buffer.substr(0, pipePos)))
-			{
-				std::cerr << "Error. Invalid date" << std::endl;
-			}
-			if (checkValue(buffer.substr(pipePos + 1)))
-			{
-				std::cerr << "Error. Invalid value" << std::endl;
-			}
-			// std:: cout << i << std::endl;
-			// std::cout << buffer.size() - 1 << std::endl;
+			BitcoinExchange ExchangeTry(dataFileName);
 		}
-		inFile.close();
-	}
+		catch (std::exception&e) 
+		{
+			std::cerr << "Error: can not open dataFile." << std::endl;
+		}
+			std::string	buffer;
+			getline(inFile, buffer);
+			if (buffer != "date | value")
+			{
+				std::cerr << "Error. Invalid input, first line needs to be:date | value" << std::endl;
+				inFile.close();
+				return (EXIT_FAILURE);
+			}
+			while (getline(inFile, buffer))
+			{
+				std::cout << "\n";
+				size_t pipePos = buffer.find("|");
+				std::cout << "pipePos: " << pipePos << std::endl;
+				if (pipePos == std::string::npos || pipePos == buffer.size() - 1)
+				{
+					std::cerr << "Error: invalid input line." << std::endl;
+					continue;
+				}
+				if (checkDate(buffer.substr(0, pipePos)))
+				{
+					std::cerr << "Error. Invalid date" << std::endl;
+				}
+				if (checkValue(buffer.substr(pipePos + 1)))
+				{
+					std::cerr << "Error. Invalid value" << std::endl;
+				}
+				// std:: cout << i << std::endl;
+				// std::cout << buffer.size() - 1 << std::endl;
+			}
+			inFile.close();
+		}
 	else
 	{
 		std::cerr << "Error: invalid number of arguments." << std::endl;
