@@ -45,6 +45,14 @@ bool	checkDate(std::string str)
 	return (false);
 }
 
+std::string parseDate(std::string str)
+{
+	size_t end = str.find_last_not_of(" ");
+    str = (end == std::string::npos) ? "" : str.substr(0, end + 1);
+	return str;
+}
+
+
 bool	checkValue(std::string value)
 {
 	std::cout << "CheckValue buffer:" << value << "END" << std::endl;
@@ -63,6 +71,15 @@ bool	checkValue(std::string value)
         return (true);
     } 
 	return (false);
+}
+
+float parseValue(std::string value)
+{
+	size_t start = value.find_first_not_of(" ");
+	value = (start == std::string::npos) ? "" : value.substr(start);
+	float conv;
+	conv = atof(value.c_str());
+	return conv;
 }
 
 int main(int argc, char **argv)
@@ -93,6 +110,7 @@ int main(int argc, char **argv)
 		{
 			std::cerr << "Error: can not open dataFile." << std::endl;
 		}
+		// Exchange.printMap();
 		std::string	buffer;
 		getline(inFile, buffer);
 		if (buffer != "date | value")
@@ -119,16 +137,21 @@ int main(int argc, char **argv)
 			{
 				std::cerr << "Error. Invalid value" << std::endl;
 			}
-		try
-		{
+			std::string date;
+			date = parseDate(buffer.substr(0, pipePos));
+			float value;
+			value = parseValue(buffer.substr(pipePos + 1));
 			float result;
-			result = Exchange.find(buffer.substr(0, pipePos));
-		}
-		catch (std::exception&e) 
-		{
-			std::cerr << "Caught here" << std::endl;
-		}
-		}
+			try
+			{
+				result = Exchange.find(buffer.substr(0, pipePos));
+				Exchange.print(result, value, date);
+			}
+			catch (std::exception&e) 
+			{
+				std::cerr << e.what() << std::endl;
+			}
+			}
 		inFile.close();
 		}
 	else
