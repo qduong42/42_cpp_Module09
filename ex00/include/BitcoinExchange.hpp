@@ -24,11 +24,11 @@ class	BitcoinExchange
 		BitcoinExchange(std::map<std::string, float>);
 		BitcoinExchange(std::string);
 
-		float		find(std::string);
-		void		printMap();
 		void		print(float, float, std::string);
+		float		find(std::string);
 		// std::string	firstDate();
 		// std::string	lastDate();
+		void		printMap();
 
 	class	invalidFileException : public std::exception
 	{

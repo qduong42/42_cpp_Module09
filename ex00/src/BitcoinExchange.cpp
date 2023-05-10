@@ -66,12 +66,9 @@ BitcoinExchange::BitcoinExchange(std::string dataFileName):
 	}
 	dataFile.close();
 	new (this) BitcoinExchange(data);
-	// for(std::map<std::string, float>::const_iterator it = this->_exchange.begin();
-	// 	it != this->_exchange.end(); ++it)
-	// {
-	// 	std::cout << it->first << " " << it->second << "\n";
-	// }
 }
+
+//	MEMBER FUNCTIONS
 
 void BitcoinExchange::print(float result, float value, std::string date)
 {
@@ -88,14 +85,12 @@ float BitcoinExchange::find(std::string date)
 	value = -1;
 	size_t end = date.find_last_not_of(" ");
     date = (end == std::string::npos) ? "" : date.substr(0, end + 1);
-	// std::cout << date << "END" <<std::endl;
 	if (date < this->_exchange.begin()->first)
 	{
 		throw	precedeException();
 	}
 	std::map<std::string, float>::const_iterator end_it = this->_exchange.end();
 	end_it--;
-	// std::cout << "DATE" << date << "END FIRST" << end_it->first << std::endl;
 	std::map<std::string, float>::const_iterator iter = this->_exchange.find(date);
     if (iter != this->_exchange.end()) {
         value = iter->second;
@@ -108,6 +103,17 @@ float BitcoinExchange::find(std::string date)
 	return value;
 }
 
+void	BitcoinExchange::printMap()
+{
+	std::map<std::string, float>::iterator it2;
+	std::cout << "PRINT BITCH" << std::endl;
+	for (it2 = this->_exchange.begin(); it2 != this->_exchange.end(); it2++)
+	{
+		std::cout << "DATE:" << it2->first << std::endl;
+	}
+}
+
+//EXCEPTIONS
 
 const char*	BitcoinExchange::invalidFileException::what() const throw()
 {
@@ -117,16 +123,4 @@ const char*	BitcoinExchange::invalidFileException::what() const throw()
 const char*	BitcoinExchange::precedeException::what() const throw()
 {
 	return ("Error: Date preceeds exchange data");
-}
-
-//	MEMBER FUNCTIONS
-
-void	BitcoinExchange::printMap()
-{
-	std::map<std::string, float>::iterator it2;
-	std::cout << "PRINT BITCH" << std::endl;
-	for (it2 = this->_exchange.begin(); it2 != this->_exchange.end(); it2++)
-	{
-		std::cout << "DATE:" << it2->first << std::endl;
-	}
 }
