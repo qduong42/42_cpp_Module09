@@ -19,18 +19,18 @@ bool	validDateFormat(std::string str)
 
 bool	checkDate(std::string str)
 {
-	std::cout << "CheckDate buffer:" << str << "END" << std::endl;
+	// std::cout << "CheckDate buffer:" << str << "END" << std::endl;
 	size_t end = str.find_last_not_of(" ");
     str = (end == std::string::npos) ? "" : str.substr(0, end + 1);
-	std::cout << "CheckDate buffer:" << str << "END" << std::endl;
+	// std::cout << "CheckDate buffer:" << str << "END" << std::endl;
 	if (validDateFormat(str))
 		return (true);
 	int year = std::atoi(str.substr(0, 4).c_str());
-	std::cout << "year: " << year << std::endl;
+	// std::cout << "year: " << year << std::endl;
 	int	month = std::atoi(str.substr(5, 7).c_str());
-	std::cout << "month: " << month << std::endl;
+	// std::cout << "month: " << month << std::endl;
 	int	day = std::atoi(str.substr(8, 10).c_str());
-	std::cout << "day: " << day << std::endl;
+	// std::cout << "day: " << day << std::endl;
 	if (month > 12 || day > 31 || month == 0 || day == 0)
 		return (true);
 	if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30)
@@ -55,10 +55,10 @@ std::string parseDate(std::string str)
 
 bool	checkValue(std::string value)
 {
-	std::cout << "CheckValue buffer:" << value << "END" << std::endl;
+	// std::cout << "CheckValue buffer:" << value << "END" << std::endl;
 	size_t start = value.find_first_not_of(" ");
     value = (start == std::string::npos) ? "" : value.substr(start);
-	std::cout << "CheckValue buffer:" << value << "END" << std::endl;
+	// std::cout << "CheckValue buffer:" << value << "END" << std::endl;
 	char *endptr;
 	float conv;
 	conv = strtod(value.c_str(), &endptr);
@@ -121,9 +121,9 @@ int main(int argc, char **argv)
 		}
 		while (getline(inFile, buffer))
 		{
-			std::cout << "\n";
+			// std::cout << "\n";
 			size_t pipePos = buffer.find("|");
-			std::cout << "pipePos: " << pipePos << std::endl;
+			// std::cout << "pipePos: " << pipePos << std::endl;
 			if (pipePos == std::string::npos || pipePos == buffer.size() - 1)
 			{
 				std::cerr << "Error: invalid input line." << std::endl;

@@ -79,7 +79,7 @@ void BitcoinExchange::print(float result, float value, std::string date)
 	output = value * result;
 	size_t end = date.find_last_not_of(" ");
     date = (end == std::string::npos) ? "" : date.substr(0, end + 1);
-	std:: cout << date << " | " << output << std::endl;
+	std:: cout << date << " => " << value << " = " << output << std::endl;
 }
 
 float BitcoinExchange::find(std::string date)
@@ -88,15 +88,14 @@ float BitcoinExchange::find(std::string date)
 	value = -1;
 	size_t end = date.find_last_not_of(" ");
     date = (end == std::string::npos) ? "" : date.substr(0, end + 1);
-	std::cout << date << "END" <<std::endl;
-	std::cout << this->_exchange.begin()->first << std::endl;
+	// std::cout << date << "END" <<std::endl;
 	if (date < this->_exchange.begin()->first)
 	{
 		throw	precedeException();
 	}
 	std::map<std::string, float>::const_iterator end_it = this->_exchange.end();
 	end_it--;
-	std::cout << "DATE" << date << "END FIRST" << end_it->first << std::endl;
+	// std::cout << "DATE" << date << "END FIRST" << end_it->first << std::endl;
 	std::map<std::string, float>::const_iterator iter = this->_exchange.find(date);
     if (iter != this->_exchange.end()) {
         value = iter->second;
