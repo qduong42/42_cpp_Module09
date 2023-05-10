@@ -26,8 +26,6 @@ class	BitcoinExchange
 
 		void		print(float, float, std::string);
 		float		find(std::string);
-		// std::string	firstDate();
-		// std::string	lastDate();
 		void		printMap();
 
 	class	invalidFileException : public std::exception

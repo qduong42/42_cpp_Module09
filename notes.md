@@ -27,3 +27,15 @@ this needs to be ./RPN "8 4 + 1 2 3 - - -"
   - 4: valuetest.txt => value, random_empty_spaces, pipe_only_no_right_side
   - 5: precede date
   - 6: exceed date
+
+- ex01
+  - Understanding parsing req
+    - skip spaces at beginning and end
+    - argv[1] ONLY, only allow argc 2
+    - check if digit 0 - 9 OR + - * /
+    - check for digit, then check if its last element (it != it of end - 1), if not last element, next char should be ' '
+    - if not digit, then must be + - / *
+    - only if stack size at least 2 then operation can be done.
+    - if operator or number left over => error
+    - Bracket => Error
+
