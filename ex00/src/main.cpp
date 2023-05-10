@@ -59,7 +59,7 @@ bool	checkValue(std::string value)
 	{
 		return (true);
     }
-	if (conv <= 0 || conv > 1000)
+	if (conv < 0 || conv > 1000)
 	{
         return (true);
     } 
@@ -70,9 +70,39 @@ float parseValue(std::string value)
 {
 	size_t start = value.find_first_not_of(" ");
 	value = (start == std::string::npos) ? "" : value.substr(start);
+	
 	float conv;
 	conv = atof(value.c_str());
 	return conv;
+}
+
+int checkInputFirstLine(std::fstream& f)
+{
+	std::string	buffer;
+	getline(f, buffer);
+	if (buffer != "date | value")
+	{
+		std::cerr << "Error. Invalid input, first line needs to be:date | value" << std::endl;
+		f.close();
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
+
+bool lastcharPipe(size_t& pipepos, std::string& buffer)
+{
+	if (pipepos == buffer.size() - 1)
+		return (true);
+	else
+		return (false);
+}
+
+bool noPipe(size_t& pipepos)
+{
+	if (pipepos == std::string::npos)
+		return true;
+	else
+		return false;
 }
 
 int main(int argc, char **argv)
@@ -87,7 +117,6 @@ int main(int argc, char **argv)
 		}
 		std::string		dataFileName("data.csv");
 		std::fstream	dataFile(dataFileName.c_str());
-
 		if (dataFile.fail())
 		{
 			std::cerr << "Error. could not open database file (data.csv). Make sure data.csv is in same folder as btc" << std::endl;
@@ -99,22 +128,18 @@ int main(int argc, char **argv)
 			BitcoinExchange ExchangeTry(dataFileName);
 			Exchange = ExchangeTry;
 		}
-		catch (std::exception&e) 
+		catch (std::exception&e)
 		{
 			std::cerr << "Error: can not open dataFile." << std::endl;
+			std::cerr << e.what() << std::endl;
 		}
-		std::string	buffer;
-		getline(inFile, buffer);
-		if (buffer != "date | value")
-		{
-			std::cerr << "Error. Invalid input, first line needs to be:date | value" << std::endl;
-			inFile.close();
+		if (checkInputFirstLine(inFile) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
-		}
+		std::string	buffer;
 		while (getline(inFile, buffer))
 		{
 			size_t pipePos = buffer.find("|");
-			if (pipePos == std::string::npos || pipePos == buffer.size() - 1)
+			if (noPipe(pipePos) || lastcharPipe(pipePos, buffer))
 			{
 				std::cerr << "Error: invalid input line." << std::endl;
 				continue;
@@ -122,28 +147,30 @@ int main(int argc, char **argv)
 			if (checkDate(buffer.substr(0, pipePos)))
 			{
 				std::cerr << "Error. Invalid date" << std::endl;
+				continue;
 			}
 			if (checkValue(buffer.substr(pipePos + 1)))
 			{
 				std::cerr << "Error. Invalid value" << std::endl;
+				continue;
 			}
 			std::string date;
 			date = parseDate(buffer.substr(0, pipePos));
 			float value;
 			value = parseValue(buffer.substr(pipePos + 1));
-			float result;
+			float exchange_rate;
 			try
 			{
-				result = Exchange.find(buffer.substr(0, pipePos));
-				Exchange.print(result, value, date);
+				exchange_rate = Exchange.find(buffer.substr(0, pipePos));
+				Exchange.print(exchange_rate, value, date);
 			}
 			catch (std::exception&e) 
 			{
 				std::cerr << e.what() << std::endl;
 			}
-			}
-		inFile.close();
 		}
+		inFile.close();
+	}
 	else
 	{
 		std::cerr << "Error: invalid number of arguments." << std::endl;

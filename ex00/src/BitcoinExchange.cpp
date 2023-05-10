@@ -70,13 +70,13 @@ BitcoinExchange::BitcoinExchange(std::string dataFileName):
 
 //	MEMBER FUNCTIONS
 
-void BitcoinExchange::print(float result, float value, std::string date)
+void BitcoinExchange::print(float exchange_rate, float value, std::string date)
 {
-	float output;
-	output = value * result;
+	float result;
+	result = value * exchange_rate;
 	size_t end = date.find_last_not_of(" ");
     date = (end == std::string::npos) ? "" : date.substr(0, end + 1);
-	std:: cout << date << " => " << value << " = " << output << std::endl;
+	std:: cout << date << " => " << value << " = " << result << std::endl;
 }
 
 float BitcoinExchange::find(std::string date)
