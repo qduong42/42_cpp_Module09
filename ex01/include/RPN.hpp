@@ -9,8 +9,8 @@ class RPN
 {
 	private:
 
-		int				_result;
-		std::stack<int> _numbers;
+		float				_result;
+		std::stack<float> _numbers;
 	public:
 
 		RPN();
@@ -20,7 +20,7 @@ class RPN
 		~RPN();
 
 		void operateStack(char);
-		int getResult();
+		float getResult();
 
 	class	invalidOperator : public std::exception
 	{

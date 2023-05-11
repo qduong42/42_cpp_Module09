@@ -2,14 +2,14 @@
 
 //	CONSTRUCTORS | DESTRUCTOR
 
-RPN::RPN():_result(-1), _numbers(std::stack<int>())
+RPN::RPN():_result(-1), _numbers(std::stack<float>())
 {}
 
 void RPN::operateStack(char op)
 {
-	int op2;
+	float op2;
 	op2 = this->_numbers.top(); this->_numbers.pop();
-	int op1;
+	float op1;
 	op1 = this->_numbers.top();this->_numbers.pop();
 	switch (op)
 	{
@@ -33,7 +33,7 @@ void RPN::operateStack(char op)
 	}
 }
 
-RPN::RPN(std::string expression): _result(-1), _numbers(std::stack<int>())
+RPN::RPN(std::string expression): _result(-1), _numbers(std::stack<float>())
 {
 	std::string valid = "0123456789+-*/ ";
 	std::string::iterator ite = expression.end();
@@ -92,7 +92,7 @@ RPN::~RPN()
 
 //	MEMBER FUNCTIONS
 
-int	RPN::getResult()
+float	RPN::getResult()
 {
 	return this->_result;
 }
