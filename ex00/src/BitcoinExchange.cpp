@@ -45,7 +45,7 @@ BitcoinExchange::BitcoinExchange(std::map<std::string, float> map):
 BitcoinExchange::BitcoinExchange(std::string dataFileName):
 	_exchange(std::map<std::string, float>())
 {
-	std::map<std::string, float>	data;
+	// std::map<std::string, float>	data;
 	std::fstream					dataFile(dataFileName.c_str());
 
 	if (dataFile.fail())
@@ -61,11 +61,12 @@ BitcoinExchange::BitcoinExchange(std::string dataFileName):
 		std::string	dateStr(buffer.substr(0, commaPos));
 		std::string	priceStr(buffer.substr(commaPos + 1, buffer.length()));
 		std::pair<std::string, float>	pair;
-		pair = make_pair(dateStr, atof(priceStr.c_str()));
-		data.insert(pair);
+		// pair = make_pair(dateStr, atof(priceStr.c_str()));
+		// data.insert(pair);
+		this->_exchange.insert(make_pair(dateStr, atof(priceStr.c_str())));
 	}
 	dataFile.close();
-	new (this) BitcoinExchange(data);
+	// new (this) BitcoinExchange(data);
 }
 
 //	MEMBER FUNCTIONS
