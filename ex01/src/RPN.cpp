@@ -21,7 +21,7 @@ void RPN::operateStack(char op)
 		break;
 	case '/':
 		if (op2 == 0)
-			throw divideByZero();
+			throw divideByZeroException();
 		else
 		{
 			this->_numbers.push(op1/op2);
@@ -36,13 +36,13 @@ void RPN::operateStack(char op)
 RPN::RPN(std::string expression): _result(-1), _numbers(std::stack<float>())
 {
 	std::string valid = "0123456789+-*/ ";
-	std::string::iterator ite = expression.end();
-	ite --;
+	std::string::iterator last_element_it = expression.end();
+	last_element_it --;
 	for (std::string::iterator it = expression.begin(); it != expression.end(); it++)
 	{
 		if (valid.find(*it) == std::string::npos)
 		{
-			throw invalidString();
+			throw invalidStringException();
 		}
 		if (*it == ' ')
 		{
@@ -52,23 +52,23 @@ RPN::RPN(std::string expression): _result(-1), _numbers(std::stack<float>())
 		{
 			std::string::iterator it_next = it;
 			it_next++;
-			if (it != ite && *it_next != ' ')
-				throw numberNext();
+			if (it != last_element_it && *it_next != ' ')
+				throw numberNextException();
 			this->_numbers.push(*it - '0');
 		}
 		else if (this->_numbers.size() > 1)
 		{
 			std::string::iterator it_next = it;
 			it_next++;
-			if (it != ite && *it_next != ' ')
-				throw operatorNext();
+			if (it != last_element_it && *it_next != ' ')
+				throw operatorNextException();
 			operateStack(*it);
 		}
 		else
-			throw notEnoughNumbers();
+			throw notEnoughNumbersException();
 	}
 	if (this->_numbers.size() > 1)
-		throw tooManyNumbers();
+		throw tooManyNumbersException();
 	else
 		_result = this->_numbers.top();
 }
@@ -97,37 +97,32 @@ float	RPN::getResult()
 	return this->_result;
 }
 
-const char*	RPN::invalidOperator::what() const throw()
-{
-	return ("Error: Invalid Operator");
-}
-
-const char*	RPN::invalidString::what() const throw()
+const char*	RPN::invalidStringException::what() const throw()
 {
 	return ("Error: Invalid String, special characters detected");
 }
 
-const char*	RPN::divideByZero::what() const throw()
+const char*	RPN::divideByZeroException::what() const throw()
 {
 	return ("Error: Can not divide by Zero my guy");
 }
 
-const char*	RPN::numberNext::what() const throw()
+const char*	RPN::numberNextException::what() const throw()
 {
 	return ("Error: Number next not space");
 }
 
-const char*	RPN::operatorNext::what() const throw()
+const char*	RPN::operatorNextException::what() const throw()
 {
 	return ("Error: operator next not space");
 }
 
-const char*	RPN::notEnoughNumbers::what() const throw()
+const char*	RPN::notEnoughNumbersException::what() const throw()
 {
 	return ("Error: Not Enough numbers for operation");
 }
 
-const char*	RPN::tooManyNumbers::what() const throw()
+const char*	RPN::tooManyNumbersException::what() const throw()
 {
 	return ("Error: still too many numbers in stack");
 }

@@ -22,31 +22,27 @@ class RPN
 		void operateStack(char);
 		float getResult();
 
-	class	invalidOperator : public std::exception
+	class	invalidStringException : public std::exception
 	{
 		const char *	what() const throw();
 	};
-	class	invalidString : public std::exception
+	class	divideByZeroException : public std::exception
 	{
 		const char *	what() const throw();
 	};
-	class	divideByZero : public std::exception
+	class	numberNextException : public std::exception
 	{
 		const char *	what() const throw();
 	};
-	class	numberNext : public std::exception
+	class	operatorNextException : public std::exception
 	{
 		const char *	what() const throw();
 	};
-	class	operatorNext : public std::exception
+	class	notEnoughNumbersException : public std::exception
 	{
 		const char *	what() const throw();
 	};
-	class	notEnoughNumbers : public std::exception
-	{
-		const char *	what() const throw();
-	};
-	class	tooManyNumbers : public std::exception
+	class	tooManyNumbersException : public std::exception
 	{
 		const char *	what() const throw();
 	};
