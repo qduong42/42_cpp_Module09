@@ -45,9 +45,7 @@ RPN::RPN(std::string expression): _result(-1), _numbers(std::stack<float>())
 			throw invalidStringException();
 		}
 		if (*it == ' ')
-		{
 			continue;
-		}	
 		if (isdigit(*it))
 		{
 			std::string::iterator it_next = it;

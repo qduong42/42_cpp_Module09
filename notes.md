@@ -39,3 +39,12 @@ this needs to be ./RPN "8 4 + 1 2 3 - - -"
     - if operator or number left over => error
     - Bracket => Error
 
+- ex02
+  - understanding merge-insert sort
+    - Steps
+      - 1: Split into PAIRS: ex: 8, 5, 12, 3, 10, 6
+        - (8, 5), (12, 3), (10, 6)
+      - 2: Order: (5, 8), (3, 12), (6, 10)
+      - 3: SPLIT into MAIN chain and PEND chain: (recursive?)
+        - Main: 8, 12, 10
+

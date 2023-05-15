@@ -11,15 +11,11 @@
 
 BitcoinExchange::BitcoinExchange():
 	_exchange(std::map<std::string, float>())
-{
-
-}
+{}
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange & other):
 	_exchange(other._exchange)
-{
-	
-}
+{}
 
 BitcoinExchange::~BitcoinExchange()
 {}
