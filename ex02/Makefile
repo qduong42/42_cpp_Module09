@@ -3,7 +3,7 @@ NAME	:= PmergeMe
 
 # Compiler 
 CC		:= c++
-CFLAGS	:= -Wall -Werror -Wextra
+CFLAGS	:= -Wall -Werror -Wextra -g
 COPT	:= -std=c++98
 
 # Debug and leak-checking options. Usage: make DEBUG=1 LEAKS=1
