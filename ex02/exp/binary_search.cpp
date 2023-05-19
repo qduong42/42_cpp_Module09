@@ -22,8 +22,6 @@ int binarySearch(std::vector<int> &a, int item, int low, int high)
         return binarySearch(a, item, low, mid - 1);
 }
 
-void binary_search(std::vector<int> &a)
-
 int main()
 {
 	std::vector <int> a = {1, 2, 3, 4, 5, 6, 7, 8, 9 , 10};
