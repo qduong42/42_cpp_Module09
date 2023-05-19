@@ -4,10 +4,10 @@
 #include <vector>
 #include <iterator>
 
-int binarySearch(std::vector<int> &a, int item, int low, int high)
+int binarySearch(std::vector<std::pair<int, int > > &a, int item, int low, int high)
 {
     if (high <= low) {
-        if (item > a[low])
+        if (item > a[low].second)
             return low + 1;
         else
             return low;
@@ -15,9 +15,9 @@ int binarySearch(std::vector<int> &a, int item, int low, int high)
     
     int mid = (low + high) / 2;
     
-    if (item == a[mid])
+    if (item == a[mid].second)
         return mid + 1;
-    else if (item > a[mid])
+    else if (item > a[mid].second)
         return binarySearch(a, item, mid + 1, high);
     else
         return binarySearch(a, item, low, mid - 1);
