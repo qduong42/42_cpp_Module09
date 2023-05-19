@@ -173,7 +173,7 @@ int main(int argc, char **argv)
 	}
 	else
 	{
-		std::cerr << "Error: invalid number of arguments." << std::endl;
+		std::cerr << "Error: Invalid Number of arguments." << std::endl;
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

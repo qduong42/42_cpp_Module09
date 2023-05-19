@@ -16,12 +16,12 @@ endif
 
 # Include files
 INC_DIR := include/
-INC_PRE := PmergeMe.hpp
+INC_PRE := PmergeMe.hpp utils.hpp
 INC		:= $(addprefix $(INC_DIR), $(INC_PRE))
 
 # Source files
 SRC_DIR	:= src/
-SRC_PRE	:= main.cpp PmergeMe.cpp
+SRC_PRE	:= main.cpp
 SRC		:= $(addprefix $(SRC_DIR), $(SRC_PRE))
 
 # Object files

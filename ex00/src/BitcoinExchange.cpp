@@ -57,7 +57,7 @@ BitcoinExchange::BitcoinExchange(std::string dataFileName):
 		std::string	dateStr(buffer.substr(0, commaPos));
 		std::string	priceStr(buffer.substr(commaPos + 1, buffer.length()));
 		std::pair<std::string, float>	pair;
-		pair = make_pair(dateStr, atof(priceStr.c_str()));
+		pair = std::make_pair(dateStr, atof(priceStr.c_str()));
 		data.insert(pair);
 	}
 	dataFile.close();
@@ -102,7 +102,7 @@ float BitcoinExchange::find(std::string date)
 void	BitcoinExchange::printMap()
 {
 	std::map<std::string, float>::iterator it2;
-	std::cout << "PRINT BITCH" << std::endl;
+	std::cout << "PRINT" << std::endl;
 	for (it2 = this->_exchange.begin(); it2 != this->_exchange.end(); it2++)
 	{
 		std::cout << "DATE:" << it2->first << std::endl;

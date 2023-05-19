@@ -31,3 +31,6 @@ Time to process a range of 3000 elements with std::vector : 1966 us
 2005 LINEAR INSERT IS FASTER THAN JACOBSTHALBefore: 30671 68552 27036 59818 [...]
 After: 11 29 143 175 [...]
 Time to process a range of 3000 elements with std::vector : 2111 us
+Before: 48996 15502 79752 3522 [...]
+After: 7 54 57 68 [...]
+Time to process a range of 3000 elements with std::vector : 1908 us

@@ -1,13 +1,14 @@
 #include "../include/PmergeMe.hpp"
 #include <iostream>
 #include <string>
+#include <vector>
 
 int main(int argc, char **argv)
 {
-	PmergeMe seq;
+	PmergeMe<std::vector<int>, std::vector<std::pair<int, int > > > seq;
 	try
 	{
-		PmergeMe try_create(argc, argv);
+		PmergeMe<std::vector<int>, std::vector<std::pair<int, int > > > try_create(argc, argv);
 		seq = try_create;
 	}
 	catch(const std::exception& e)

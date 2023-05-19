@@ -47,4 +47,7 @@ this needs to be ./RPN "8 4 + 1 2 3 - - -"
       - 2: Order: (5, 8), (3, 12), (6, 10)
       - 3: SPLIT into MAIN chain and PEND chain: (recursive?)
         - Main: 8, 12, 10
-
+    - TODO:
+      - jacobsthal sequence DONE - looks like shit
+      - Binary insertion 
+      - Time calculation
