@@ -2,6 +2,33 @@
 
 //	CONSTRUCTORS | DESTRUCTOR
 
+int	jacobsthalNumber(int idx)
+{
+	if (idx == 0)
+		return (0);
+	if (idx == 1)
+		return (1);
+	int	jacobsthal;
+	jacobsthal = jacobsthalNumber(idx - 1) + 2 * jacobsthalNumber(idx - 2);
+	return (jacobsthal);
+}
+
+void make_jacobs_sequences(size_t t, std::vector<int>& jacobs_num)
+{
+    int i = 3;
+    jacobs_num.push_back(1);
+
+    while(std::find(jacobs_num.begin(), jacobs_num.end(), t) == jacobs_num.end())
+	{
+        int num = jacobsthalNumber(i++);
+        jacobs_num.push_back(num);
+        while (std::find(jacobs_num.begin(), jacobs_num.end(), --num) == jacobs_num.end())
+        {
+            jacobs_num.push_back(num);
+        }
+    }
+}
+
 PmergeMe::PmergeMe() :_straggler(-1)
 {}
 
@@ -12,14 +39,14 @@ bool PmergeMe::myComparison(const std::pair<int, int> &a, const std::pair<int, i
 }
 
 //in microseconds
-double getProcessorTime()
+double PmergeMe::getProcessorTime() const
 {
     std::clock_t currentTime = std::clock();
-    double processorTime = static_cast<double>(currentTime) / CLOCKS_PER_SEC * 1000000;
+    double processorTime = static_cast<double>(currentTime) / CLOCKS_PER_SEC * SEC_TO_MS;
     return processorTime;
 }
 
-int binarySearch(const std::vector<int> &a, const int &item, const int low, const int high)
+int PmergeMe::binarySearch(const std::vector<int> &a, const int &item, const int low, const int high)const
 {
 	//if the search range has been narrowed down to a single element or has become invalid (high < low).
     if (high <= low) 
@@ -56,7 +83,7 @@ PmergeMe::PmergeMe(const int argc, char **argv): _straggler(-1)
 			for (std::string::iterator it = check.begin(); it!= check.end(); it++)
 			{
 				if (valid.find(*it) == std::string::npos)
-					throw PmergeMe::invalidNumberException();
+					throw PmergeMe::invalidInputException();
 			}
 			int_check = atoll(argv[i]);
 			if (int_check > INT_MAX)
@@ -93,6 +120,10 @@ PmergeMe::PmergeMe(const int argc, char **argv): _straggler(-1)
 			std::cout << "[...]" << std::endl;
 		}
 	}
+	std::vector<int> jacobsthal;
+	make_jacobs_sequences((argc /2), jacobsthal);
+	for (std::vector<int>::iterator it = jacobsthal.begin(); it != jacobsthal.end(); it++)
+		*it = *it -1;
 	double startTime = getProcessorTime();
 
 	// check for only digits in argv, and push all back to int vector
@@ -106,7 +137,7 @@ PmergeMe::PmergeMe(const int argc, char **argv): _straggler(-1)
 		for (std::string::iterator it = check.begin(); it!= check.end(); it++)
 		{
 			if (valid.find(*it) == std::string::npos)
-				throw PmergeMe::invalidNumberException();
+				throw PmergeMe::invalidInputException();
 		}
 		numbers.push_back(atoi(argv[i]));
 	}
@@ -119,10 +150,6 @@ PmergeMe::PmergeMe(const int argc, char **argv): _straggler(-1)
 		this->_straggler = numbers.back();
 		numbers.pop_back();
 	}
-	// for (std::vector<int>::iterator it = numbers.begin(); it != numbers.end(); it++)
-	// {
-	// 	std::cout << *it << std::endl;
-	// }
 	/**
 	 * @brief assign vecpairs to first and second
 	 * 
@@ -151,30 +178,15 @@ PmergeMe::PmergeMe(const int argc, char **argv): _straggler(-1)
 			std::swap(it->first, it->second);
 		}
 	}
-	// std::cout << "=========Paired =======" << std::endl;
-	// for (std::vector<std::pair<int, int > >::iterator it = vecPairs.begin(); it != vecPairs.end(); it++)
-	// {
-	// 		std::cout << it->first << "," << it->second << std::endl;
-	// }
 	// Sorts vecPairs
-	sort(vecPairs.begin(), vecPairs.end(), myComparison);
-	// std::cout << "=========Sorted by second =======" << std::endl;
-	// for (std::vector<std::pair<int, int > >::iterator it = vecPairs.begin(); it != vecPairs.end(); it++)
-	// {
-	// 		std::cout << it->first << "," << it->second << std::endl;
-	// }
+	sort(vecPairs.begin(), vecPairs.end(), PmergeMe::myComparison);
 	//insert straggler at end
+	//add straggler to vecPairs
 	if (this->_straggler > -1)
 	{
 		vecPairs.push_back(std::make_pair(this->_straggler, -1));
 		numbers.push_back(this->_straggler);
 	}
-	// std::cout << "=========With straggler =======" << std::endl;
-	// for (std::vector<std::pair<int, int > >::iterator it = vecPairs.begin(); it != vecPairs.end(); it++)
-	// {
-	// 		std::cout << it->first << "," << it->second << std::endl;
-	// }
-	//add straggler to vecPairs
 	// put vecPairs second into main chain
 	std::vector <int> main_chain;
 	for (std::vector<std::pair<int, int > >::iterator it = vecPairs.begin(); it != vecPairs.end(); it++)
@@ -182,18 +194,7 @@ PmergeMe::PmergeMe(const int argc, char **argv): _straggler(-1)
 		if (it->second > -1)
 			main_chain.push_back(it->second);
 	}
-	// std::cout << "========= Main_Chain =======" << std::endl;
-	// for (std::vector<int>::iterator it = main_chain.begin(); it != main_chain.end(); it++)
-	// {
-	// 		std::cout << *it << std::endl;
-	// }
 	//generate Jacobsthal up to x
-	std::vector<int> jacobsthal;
-	PmergeMe::make_jacobs_sequence(vecPairs, jacobsthal);
-	for (std::vector<int>::iterator it = jacobsthal.begin(); it != jacobsthal.end(); it++)
-	{
-		*it = *it -1;
-	}
 	for (std::vector<int>::iterator it = jacobsthal.begin(); it != jacobsthal.end(); it++)
 	{
 		if (*it < static_cast<int>(vecPairs.size() - 1))
@@ -204,6 +205,13 @@ PmergeMe::PmergeMe(const int argc, char **argv): _straggler(-1)
 			main_chain.insert(main_chain.begin() + insert_pos, vecPairs.at(*it).first);
 		}
 	}
+/* 	for (std::vector<std::pair<int, int > >::iterator it = vecPairs.begin(); it != vecPairs.end() ; it++)
+	{
+		int insert_pos;
+		insert_pos = binarySearch(main_chain, it->first, 0, main_chain.size() -1);
+		main_chain.insert(main_chain.begin() + insert_pos, it->first);
+	} */
+	
 	// 		std::cout << "========= Main_Chain AFTER insert (jacob) =======" << std::endl;
 	// for (std::vector<int>::iterator it = main_chain.begin(); it != main_chain.end(); it++)
 	// {
@@ -216,19 +224,6 @@ PmergeMe::PmergeMe(const int argc, char **argv): _straggler(-1)
 
     // Output the time difference
 	std::cout << "Time to process a range of " << numbers.size() << " elements with std::vector : " <<  timeDifference << " us" << std::endl;
-}
-
-
-
-int	jacobsthalNumber(int idx)
-{
-	if (idx == 0)
-		return (0);
-	if (idx == 1)
-		return (1);
-	int	jacobsthal;
-	jacobsthal = jacobsthalNumber(idx - 1) + 2 * jacobsthalNumber(idx - 2);
-	return (jacobsthal);
 }
 
 void PmergeMe::make_jacobs_sequence(std::vector<std::pair<int, int > >& paired_vectr, std::vector<int>& jacobs_num)
@@ -248,8 +243,7 @@ void PmergeMe::make_jacobs_sequence(std::vector<std::pair<int, int > >& paired_v
 }
 
 PmergeMe::PmergeMe(PmergeMe const& obj): _straggler(obj._straggler)
-{
-}
+{}
 
 PmergeMe& PmergeMe::operator=(PmergeMe const& obj)
 {
@@ -265,9 +259,9 @@ PmergeMe::~PmergeMe()
 
 //	MEMBER FUNCTIONS
 
-const char*	PmergeMe::invalidNumberException::what() const throw()
+const char*	PmergeMe::invalidInputException::what() const throw()
 {
-	return ("Error: Invalid Number. Only positive digits are allowed, without spaces.");
+	return ("Error: Invalid Input. Only positive digits are allowed, without spaces.");
 }
 
 const char*	PmergeMe::isSortedException::what() const throw()
