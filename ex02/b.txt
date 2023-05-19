@@ -1,0 +1,33 @@
+Time to process a range of 3000 elements with std::vector : 1941 us
+Time to process a range of 3000 elements with std::vector : 1856 us
+Time to process a range of 3000 elements with std::vector : 2309 us
+Time to process a range of 3000 elements with std::vector : 1861 us
+Time to process a range of 3000 elements with std::vector : 1928 us
+Time to process a range of 3000 elements with std::vector : 1922 us
+Time to process a range of 3000 elements with std::vector : 1957 us
+Time to process a range of 3000 elements with std::vector : 1945 us
+Time to process a range of 3000 elements with std::vector : 1916 us
+Time to process a range of 3000 elements with std::vector : 2195 us
+Time to process a range of 3000 elements with std::vector : 2024 us
+Time to process a range of 3000 elements with std::vector : 1851 us
+Time to process a range of 3000 elements with std::vector : 1911 us
+Time to process a range of 3000 elements with std::vector : 1948 us
+Time to process a range of 3000 elements with std::vector : 1955 us
+Time to process a range of 3000 elements with std::vector : 2229 us
+Time to process a range of 3000 elements with std::vector : 1858 us
+Time to process a range of 3000 elements with std::vector : 2010 us
+Time to process a range of 3000 elements with std::vector : 1901 us
+Time to process a range of 3000 elements with std::vector : 1918 us
+Time to process a range of 3000 elements with std::vector : 1869 us
+Time to process a range of 3000 elements with std::vector : 2479 us
+Time to process a range of 3000 elements with std::vector : 1910 us
+Time to process a range of 3000 elements with std::vector : 2194 us
+Time to process a range of 3000 elements with std::vector : 2057 us
+Time to process a range of 3000 elements with std::vector : 1917 us
+Time to process a range of 3000 elements with std::vector : 2112 us
+Time to process a range of 3000 elements with std::vector : 2206 us
+Time to process a range of 3000 elements with std::vector : 1966 us
+
+2005 LINEAR INSERT IS FASTER THAN JACOBSTHALBefore: 30671 68552 27036 59818 [...]
+After: 11 29 143 175 [...]
+Time to process a range of 3000 elements with std::vector : 2111 us

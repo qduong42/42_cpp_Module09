@@ -33,7 +33,7 @@ PmergeMe::PmergeMe() :_straggler(-1)
 {}
 
 //custom mycomparison function to sort by second
-bool PmergeMe::myComparison(const std::pair<int, int> &a, const std::pair<int, int> &b)
+bool myComparison(const std::pair<int, int> &a, const std::pair<int, int> &b)
 {
 	return (a.second < b.second);
 }
@@ -120,8 +120,10 @@ PmergeMe::PmergeMe(const int argc, char **argv): _straggler(-1)
 			std::cout << "[...]" << std::endl;
 		}
 	}
+	//make jacobsthal seq outside because its not part of sorting
 	std::vector<int> jacobsthal;
-	make_jacobs_sequences((argc /2), jacobsthal);
+	make_jacobs_sequences((argc / 2), jacobsthal);
+	//translates numbers to indices
 	for (std::vector<int>::iterator it = jacobsthal.begin(); it != jacobsthal.end(); it++)
 		*it = *it -1;
 	double startTime = getProcessorTime();
@@ -179,7 +181,7 @@ PmergeMe::PmergeMe(const int argc, char **argv): _straggler(-1)
 		}
 	}
 	// Sorts vecPairs
-	sort(vecPairs.begin(), vecPairs.end(), PmergeMe::myComparison);
+	sort(vecPairs.begin(), vecPairs.end(), myComparison);
 	//insert straggler at end
 	//add straggler to vecPairs
 	if (this->_straggler > -1)
@@ -201,22 +203,9 @@ PmergeMe::PmergeMe(const int argc, char **argv): _straggler(-1)
 		{
 			int insert_pos;
 			insert_pos = binarySearch(main_chain, vecPairs.at(*it).first, 0, main_chain.size() - 1);
-			// std::cout << "insert+pos" << insert_pos << std::endl;
 			main_chain.insert(main_chain.begin() + insert_pos, vecPairs.at(*it).first);
 		}
-	}
-/* 	for (std::vector<std::pair<int, int > >::iterator it = vecPairs.begin(); it != vecPairs.end() ; it++)
-	{
-		int insert_pos;
-		insert_pos = binarySearch(main_chain, it->first, 0, main_chain.size() -1);
-		main_chain.insert(main_chain.begin() + insert_pos, it->first);
-	} */
-	
-	// 		std::cout << "========= Main_Chain AFTER insert (jacob) =======" << std::endl;
-	// for (std::vector<int>::iterator it = main_chain.begin(); it != main_chain.end(); it++)
-	// {
-	// 		std::cout << *it << std::endl;
-	// }
+	} 
 	double endTime = getProcessorTime();
 
     // Calculate the difference in time
@@ -224,22 +213,6 @@ PmergeMe::PmergeMe(const int argc, char **argv): _straggler(-1)
 
     // Output the time difference
 	std::cout << "Time to process a range of " << numbers.size() << " elements with std::vector : " <<  timeDifference << " us" << std::endl;
-}
-
-void PmergeMe::make_jacobs_sequence(std::vector<std::pair<int, int > >& paired_vectr, std::vector<int>& jacobs_num)
-{
-    int i = 3;
-    jacobs_num.push_back(1);
-
-    while(std::find(jacobs_num.begin(), jacobs_num.end(), paired_vectr.size()) == jacobs_num.end())
-	{
-        int num = jacobsthalNumber(i++);
-        jacobs_num.push_back(num);
-        while (std::find(jacobs_num.begin(), jacobs_num.end(), --num) == jacobs_num.end())
-        {
-            jacobs_num.push_back(num);
-        }
-    }
 }
 
 PmergeMe::PmergeMe(PmergeMe const& obj): _straggler(obj._straggler)

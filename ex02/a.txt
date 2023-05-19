@@ -1,0 +1,26 @@
+Time to process a range of 3000 elements with std::vector : 1960 us
+Time to process a range of 3000 elements with std::vector : 2248 us
+Time to process a range of 3000 elements with std::vector : 1886 us
+Time to process a range of 3000 elements with std::vector : 2391 us
+Time to process a range of 3000 elements with std::vector : 1954 us
+Time to process a range of 3000 elements with std::vector : 2237 us
+Time to process a range of 3000 elements with std::vector : 2124 us
+Time to process a range of 3000 elements with std::vector : 1950 us
+Time to process a range of 3000 elements with std::vector : 2103 us
+Time to process a range of 3000 elements with std::vector : 2024 us
+Time to process a range of 3000 elements with std::vector : 1991 us
+Time to process a range of 3000 elements with std::vector : 2028 us
+Time to process a range of 3000 elements with std::vector : 2067 us
+Time to process a range of 3000 elements with std::vector : 1902 us
+Time to process a range of 3000 elements with std::vector : 1994 us
+Time to process a range of 3000 elements with std::vector : 1931 us
+Time to process a range of 3000 elements with std::vector : 1985 us
+Time to process a range of 3000 elements with std::vector : 2072 us
+Time to process a range of 3000 elements with std::vector : 2252 us
+Time to process a range of 3000 elements with std::vector : 2161 us
+Time to process a range of 3000 elements with std::vector : 1899 us
+Time to process a range of 3000 elements with std::vector : 2015 us
+Time to process a range of 3000 elements with std::vector : 1988 us
+Time to process a range of 3000 elements with std::vector : 2132 us
+Time to process a range of 3000 elements with std::vector : 1895 us
+ 2047.56
