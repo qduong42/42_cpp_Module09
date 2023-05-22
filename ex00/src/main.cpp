@@ -133,6 +133,7 @@ int main(int argc, char **argv)
 			std::cerr << "Error: can not open dataFile." << std::endl;
 			std::cerr << e.what() << std::endl;
 		}
+		Exchange.printMap();
 		if (checkInputFirstLine(inFile) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		std::string	buffer;

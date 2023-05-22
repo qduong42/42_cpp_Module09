@@ -26,12 +26,16 @@ BitcoinExchange::~BitcoinExchange()
 
 
 
-BitcoinExchange &	BitcoinExchange::operator=(const BitcoinExchange & other)
+BitcoinExchange &	BitcoinExchange::operator=(BitcoinExchange & other)
 
 {
 	if (this != &other)
 	{
-		new (this) BitcoinExchange(other);
+		// new (this) BitcoinExchange(other);
+		for (std::map<std::string, float>::iterator it = other._exchange.begin(); it != other._exchange.end(); it++)
+		{
+			this->_exchange.insert(make_pair(it->first, it->second));
+		}
 	}
 	return (*this);
 }

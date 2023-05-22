@@ -18,7 +18,7 @@ class	BitcoinExchange
 		BitcoinExchange();
 		BitcoinExchange(const BitcoinExchange &);
 		~BitcoinExchange();
-		BitcoinExchange&	operator=(const BitcoinExchange &);
+		BitcoinExchange&	operator=(BitcoinExchange &);
 
 
 		BitcoinExchange(std::map<std::string, float>);
