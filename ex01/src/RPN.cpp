@@ -107,7 +107,7 @@ const char*	RPN::divideByZeroException::what() const throw()
 
 const char*	RPN::numberNextException::what() const throw()
 {
-	return ("Error: Number next not space");
+	return ("Error: Number next not space, only numbers 1-9 allowed");
 }
 
 const char*	RPN::operatorNextException::what() const throw()
