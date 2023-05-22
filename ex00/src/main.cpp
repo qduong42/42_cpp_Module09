@@ -52,10 +52,12 @@ bool	checkValue(std::string value)
 {
 	size_t start = value.find_first_not_of(" ");
     value = (start == std::string::npos) ? "" : value.substr(start);
+	size_t end = value.find_last_not_of(" ");
+	value = (end == std::string::npos) ? "" : value.substr(0, end + 1);
 	char *endptr;
 	float conv;
-	conv = strtod(value.c_str(), &endptr);
-	if (endptr == value.c_str() || *endptr != '\0') 
+	conv = strtof(value.c_str(), &endptr);
+	if (endptr == value.c_str() || strlen(endptr) > 1 || (*endptr != '\0' && *endptr != 'f')) 
 	{
 		return (true);
     }
@@ -82,7 +84,7 @@ int checkInputFirstLine(std::fstream& f)
 	getline(f, buffer);
 	if (buffer != "date | value")
 	{
-		std::cerr << "Error. Invalid input, first line needs to be:date | value" << std::endl;
+		std::cerr << "Error. Invalid input, first line needs to be: date | value" << std::endl;
 		f.close();
 		return (EXIT_FAILURE);
 	}
@@ -141,7 +143,7 @@ int main(int argc, char **argv)
 			size_t pipePos = buffer.find("|");
 			if (noPipe(pipePos) || lastcharPipe(pipePos, buffer))
 			{
-				std::cerr << "Error: invalid input line." << std::endl;
+				std::cerr << "Error: invalid input line. No pipe or last character is pipe" << std::endl;
 				continue;
 			}
 			if (checkDate(buffer.substr(0, pipePos)))
@@ -151,7 +153,7 @@ int main(int argc, char **argv)
 			}
 			if (checkValue(buffer.substr(pipePos + 1)))
 			{
-				std::cerr << "Error. Invalid value" << std::endl;
+				std::cerr << "Error. Invalid value, enter a number between 0 and 1000" << std::endl;
 				continue;
 			}
 			std::string date;

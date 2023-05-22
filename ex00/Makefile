@@ -7,11 +7,11 @@ CFLAGS	:= -Wall -Werror -Wextra
 COPT	:= -std=c++98
 
 # Debug and leak-checking options. Usage: make DEBUG=1 LEAKS=1
-ifeq ($(DEBUG), 1)
-	COPT += -g
-endif
+# ifeq ($(DEBUG), 1)
+# 	COPT += -g
+# endif
 ifeq ($(LEAKS), 1)
-	COPT += -fsanitize=address
+	COPT += -fsanitize=address -g
 endif
 
 # Include files
