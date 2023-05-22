@@ -7,35 +7,15 @@
 #include <utility>
 #include <iomanip>
 #include <algorithm>
+#include <deque>
 
 #define SEC_TO_MS 1000000
 
-int	jacobsthalNumber(int idx)
-{
-	if (idx == 0)
-		return (0);
-	if (idx == 1)
-		return (1);
-	int	jacobsthal;
-	jacobsthal = jacobsthalNumber(idx - 1) + 2 * jacobsthalNumber(idx - 2);
-	return (jacobsthal);
-}
+int	jacobsthalNumber(int idx);
 
-void make_jacobs_sequences(size_t t, std::vector<int>& jacobs_num)
-{
-    int i = 3;
-    jacobs_num.push_back(1);
+void make_jacobs_sequences(size_t t, std::vector<int>& jacobs_num);
 
-    while(std::find(jacobs_num.begin(), jacobs_num.end(), t) == jacobs_num.end())
-	{
-        int num = jacobsthalNumber(i++);
-        jacobs_num.push_back(num);
-        while (std::find(jacobs_num.begin(), jacobs_num.end(), --num) == jacobs_num.end())
-        {
-            jacobs_num.push_back(num);
-        }
-    }
-}
+bool myComparison(const std::pair<int, int>&a, const std::pair<int, int>&b);
 
 template <typename A, typename B>
 class PmergeMe
@@ -45,6 +25,7 @@ class PmergeMe
 	int _straggler;
 	double getProcessorTime() const;
 	int binarySearch(const A&, const int&, const int, const int)const;
+	void output_print(const A&, const double&)const;
 
 	public:
 		PmergeMe();
@@ -63,9 +44,21 @@ class PmergeMe
 	};
 };
 
-bool myComparison(const std::pair<int, int>&a, const std::pair<int, int>&b)
+template <typename A, typename B>
+void PmergeMe<A, B>::output_print(const A& container, const double &timeDifference)const
 {
-	return (a.second < b.second);
+	if (typeid(container) == typeid(std::deque<typename A::value_type, typename A::allocator_type>))
+	{
+		std::cout << "Time to process a range of " << container.size()
+			  	  << " elements with std::deque : " 
+			  	  <<  timeDifference << " us" << std::endl;
+	}
+	else if (typeid(container) == typeid(std::vector<typename A::value_type, typename A::allocator_type>))
+	{
+		std::cout << "Time to process a range of " << container.size()
+		  		  << " elements with std::vector : " 
+		  		  <<  timeDifference << " us" << std::endl;
+	}
 }
 
 //custom mycomparison function to sort by second
@@ -225,7 +218,7 @@ PmergeMe<A, B>::PmergeMe(const int argc, char **argv): _straggler(-1)
     double timeDifference = endTime - startTime;
 
     // Output the time difference
-	std::cout << "Time to process a range of " << numbers.size() << " elements with std::vector : " <<  timeDifference << " us" << std::endl;
+	output_print(numbers, timeDifference);
 }
 
 template <typename A, typename B>
