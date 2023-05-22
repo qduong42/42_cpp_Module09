@@ -1,0 +1,6 @@
+Before: 8 2 34 4 
+After: 2 4 8 34 
+Time to process a range of 4 elements with std::vector : 8 us
+Before: 8 2 34 4 
+After: 2 4 8 34 
+Time to process a range of 4 elements with std::deque : 22 us

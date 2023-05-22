@@ -67,63 +67,15 @@ PmergeMe<A, B>::PmergeMe(const int &argc, char **argv): _straggler(-1)
 	 * @brief prints before and after, before time is started
 	 * 
 	 */
-	pre_print_info(argc, argv);
-	// {
-	// 	std::string check;
-	// 	const std::string valid = "0123456789";
-	// 	long long int int_check;
-	// 	A numbers;
-	// 	for (int i = 1; i < argc; i++)
-	// 	{
-	// 		check = argv[i];
-	// 		// std::cout << check << std::endl;
-	// 		for (std::string::iterator it = check.begin(); it!= check.end(); it++)
-	// 		{
-	// 			if (valid.find(*it) == std::string::npos)
-	// 				throw PmergeMe<A, B>::invalidInputException();
-	// 		}
-	// 		int_check = atoll(argv[i]);
-	// 		if (int_check > INT_MAX)
-	// 			throw std::invalid_argument("Error: Inputs are more than max int");
-	// 		numbers.push_back(atoi(argv[i]));
-	// 	}
-	// 	if (std::is_sorted(numbers.begin(), numbers.end()))
-	// 		throw PmergeMe<A, B>::isSortedException();
-	// 	std::cout << "Before: ";
-	// 	if (numbers.size() <= 5)
-	// 	{
-	// 		for (size_t i = 0; i < numbers.size(); i++)
-	// 			std::cout << numbers[i] << " ";
-	// 		std::cout << std::endl;
-	// 	}
-	// 	else
-	// 	{
-	// 		for (int i = 0; i < 4;i++)
-	// 			std::cout << numbers[i] << " ";
-	// 		std::cout << "[...]" << std::endl;
-	// 	}
-	// 	std::cout << "After: ";
-	// 	std::sort(numbers.begin(), numbers.end());
-	// 	if (numbers.size() <= 5)
-	// 	{
-	// 		for (size_t i = 0; i < numbers.size(); i++)
-	// 			std::cout << numbers[i] << " ";
-	// 		std::cout << std::endl;
-	// 	}
-	// 	else
-	// 	{
-	// 		for (int i = 0; i < 4;i++)
-	// 			std::cout << numbers[i] << " ";
-	// 		std::cout << "[...]" << std::endl;
-	// 	}
-	// }
+	PmergeMe<A, B>::pre_print_info(argc, argv);
 	//make jacobsthal seq outside because its not part of sorting or data management
+	//generate Jacobsthal up to x
 	std::vector<int> jacobsthal;
 	make_jacobs_sequences((argc / 2), jacobsthal);
 	//translates numbers to indices
 	for (std::vector<int>::iterator it = jacobsthal.begin(); it != jacobsthal.end(); it++)
 		*it = *it -1;
-	double startTime = getProcessorTime();
+	double startTime = PmergeMe<A, B>::getProcessorTime();
 	// check for only digits in argv, and push all back to int vector
 	std::string check;
 	std::string valid = "0123456789";
@@ -191,23 +143,23 @@ PmergeMe<A, B>::PmergeMe(const int &argc, char **argv): _straggler(-1)
 		if (it->second > -1)
 			main_chain.push_back(it->second);
 	}
-	//generate Jacobsthal up to x
+	// Iterates through jacobsthal sequence and insert according to that specific order
 	for (std::vector<int>::iterator it = jacobsthal.begin(); it != jacobsthal.end(); it++)
 	{
 		if (*it < static_cast<int>(vecPairs.size() - 1))
 		{
 			int insert_pos;
-			insert_pos = binarySearch(main_chain, vecPairs.at(*it).first, 0, main_chain.size() - 1);
+			insert_pos = PmergeMe<A, B>::binarySearch(main_chain, vecPairs.at(*it).first, 0, main_chain.size() - 1);
 			main_chain.insert(main_chain.begin() + insert_pos, vecPairs.at(*it).first);
 		}
-	} 
-	double endTime = getProcessorTime();
+	}
+	double endTime = PmergeMe<A, B>::getProcessorTime();
 
     // Calculate the difference in time
     double timeDifference = endTime - startTime;
 
     // Output the time difference
-	output_print(numbers, timeDifference);
+	PmergeMe<A, B>::output_print(numbers, timeDifference);
 }
 
 template <typename A, typename B>
