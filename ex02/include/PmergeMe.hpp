@@ -4,6 +4,9 @@
 #include <iostream>
 #include <vector>
 #include <deque>
+#include <time.h>
+#include <typeinfo>
+#include <climits>
 //indirectly included in vector & deque
 #include <utility>
 #include <algorithm>
@@ -205,7 +208,7 @@ const char*	PmergeMe<A, B>::isSortedException::what() const throw()
 template <typename A, typename B>
 double PmergeMe<A, B>::getProcessorTime() const
 {
-    std::clock_t currentTime = std::clock();
+    clock_t currentTime = clock();
     double processorTime = static_cast<double>(currentTime) / CLOCKS_PER_SEC * SEC_TO_MS;
     return processorTime;
 }
@@ -269,8 +272,8 @@ void	PmergeMe<A, B>::pre_print_info(const int &argc, char **argv)
 			throw std::invalid_argument("Error: Inputs are more than max int");
 		numbers.push_back(atoi(argv[i]));
 	}
-	if (std::is_sorted(numbers.begin(), numbers.end()))
-		throw PmergeMe<A, B>::isSortedException();
+	// if (std::is_sorted(numbers.begin(), numbers.end()))
+	// 	throw PmergeMe<A, B>::isSortedException();
 	std::cout << "Before: ";
 	if (numbers.size() <= 5)
 	{
