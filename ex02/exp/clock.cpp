@@ -43,8 +43,8 @@ int main()
 	std::sort(vec.begin(), vec.end());
 	for (std::vector<int>::iterator it = side_chain.begin(); it != side_chain.end(); it++)
 	{
-		int insertPos = binary_Search(vec, *it, vec[0], vec[vec.size() - 1]);
-		vec.insert(insertPos, *it);
+		int insertPos = binarySearch(vec, *it, vec[0], vec[vec.size() - 1]);
+		vec.insert(vec.begin() + insertPos, *it);
 	}    
     // int insertPos = binarySearch(vec, item, vec[0], vec[vec.size() - 1]);
 	// for (std::vector<int>::iterator it = side_chain.begin(); it != side_chain.end(); it++)
@@ -54,10 +54,10 @@ int main()
 	// }
 	// std::cout << vec.size() << std::endl;
 	}
-	for (std::vector<int>::iterator it = vec.begin(); it != vec.end(); it++)
-	{
-		std::cout << *it << std::endl;
-	}
+	// for (std::vector<int>::iterator it = vec.begin(); it != vec.end(); it++)
+	// {
+	// 	std::cout << *it << std::endl;
+	// }
 
 
     // Measure the time after the first operation
