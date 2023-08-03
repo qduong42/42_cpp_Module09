@@ -21,7 +21,7 @@ Invalid RPN Expressions throw errors in the form of thrown and caught exceptions
 - "1 +" (1 operator but only 1 number => Not Enough numbers for operation)
 - "1 3 + 5" (1 operator but 3 numbers to compute => still too many numbers in stack)
 
-## Ex02
+### Ex02
 In this excercise, we implement Merge-Insertion Sort in CPP. We need to compare the operation time of two different containers. I compared the vector and the deque. I practiced my knowledge with templates and wrote template functions that can be applied to both containers.
 
 ## Installation & Usage
