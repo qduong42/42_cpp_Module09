@@ -9,13 +9,13 @@ In this excercise we need to create a BitcoinExchange and convert input values i
 ### Ex01
 In this excercise we need to parse as well as compute a simple single digit RPN(reverse polish notation) expression (handling tokens + - * / only) to the correct result. For this excercise, a stack was decided as a First in Last out method. As operations between the two most recent numbers need to be done, as soon as an operator is encountered. An Example:
 
-RPN 1 5 7 0 + - * evaluates to
-1st Operation = 1 5 7 + 0 - *
-RPN 1 5 7 - *
-2nd Operation = 1 5 - 7 *
-RPN 1 -2 *
-3rd Operation = 1 * -2
-Result = - 2
+- RPN 1 5 7 0 + - * evaluates to
+- 1st Operation = 1 5 7 + 0 - *
+- RPN 1 5 7 - *
+- 2nd Operation = 1 5 - 7 *
+- RPN 1 -2 *
+- 3rd Operation = 1 * -2
+- Result = - 2
 
 Invalid RPN Expressions throw errors in the form of thrown and caught exceptions, for example:
 "1 +" (1 operator but only 1 number => Not Enough numbers for operation)
